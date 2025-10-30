@@ -1,5 +1,5 @@
 <?php
-    $titulo = $_POST["titulo"];
+    $titulo = htmlspecialchars($_POST["titulo"]);
 
     $directorio = "img/";
     if (!is_dir($directorio)) {
@@ -8,6 +8,11 @@
 
     $nombreArchivo = basename($_FILES['imagen']['name']);
     $rutaDestino = $directorio . $nombreArchivo;
+
+    if (empty($titulo) or empty($nombreArchivo)){
+        header("Location:error.php");
+        exit;
+    }
 
     // Pa mover el archivo a la carpeta img
     if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino)) {
