@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de la compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #lista {
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        button:hover {
+            background-color: #004a99;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de la compra</h1>
+
+    <button id="btnCargar">Cargar lista</button>
+
+    <div id="lista">
+        
+    </div>
+
+    <script>
+     document.getElementById("btnCargar").addEventListener("click", function() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                let elemento = document.getElementById("lista");
+                let datos = JSON.parse(this.responseText);
+                elemento.innerHTML = "<ul>";
+                elemento.innerHTML += "<li>Nombre: " + datos.nombre + "<li>";
+            };
+            xhr.open("GET", "listado.php", true);
+            xhr.send();
+        });
+    </script>
+
+</body>
+</html>

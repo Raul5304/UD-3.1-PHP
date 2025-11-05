@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de la compra (JSON + Formulario)</title>
+    <script>
+        // Función para mostrar la lista desde un JSON recibido
+        function mostrarLista(datos) {
+            let html = "<ul>";
+            datos.forEach(item => {
+                html += "<li>" + item + "</li>";
+            });
+            html += "</ul>";
+            document.getElementById("lista").innerHTML = html;
+        }
+
+        // Cargar lista mediante AJAX (GET)
+        function cargarLista() {
+            fetch("listado.php")
+                .then(response => response.json())
+                .then(data => mostrarLista(data))
+                .catch(error => {
+                    document.getElementById("lista").innerHTML = "Error al cargar la lista.";
+                    console.error(error);
+                });
+        }
+
+        // Enviar formulario (POST) para agregar nuevo artículo
+        function enviarFormulario(event) {
+            event.preventDefault();
+
+            const form = document.getElementById("formulario");
+            const formData = new FormData(form);
+
+            fetch("nuevo.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                mostrarLista(data);
+                form.reset();
+            })
+            .catch(error => console.error(error));
+        }
+
+        window.onload = function() {
+            cargarLista();
+        }
+    </script>
+</head>
+<body>
+    <h1>Lista de la compra</h1>
+
+    <div id="lista">
+        <!-- Aquí se cargará la lista -->
+    </div>
+
+    <button onclick="cargarLista()">Cargar lista</button>
+
+    <h2>Añadir nuevo artículo</h2>
+    <form id="formulario" onsubmit="enviarFormulario(event)">
+        <input type="text" name="articulo" placeholder="Nuevo artículo" required>
+        <button type="submit">Añadir</button>
+    </form>
+</body>
+</html>
