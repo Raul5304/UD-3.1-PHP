@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de la compra (JSON + Formulario)</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        ul{
+            list-style-type: square;
+        }
+        button{
+            border-radius: 10px;
+            background-color: rgb(87, 87, 87);
+            color: rgb(219, 219, 219);
+        }
+    </style>
     <script>
         // Función para mostrar la lista desde un JSON recibido
         function mostrarLista(datos) {
@@ -14,7 +27,7 @@
             document.getElementById("lista").innerHTML = html;
         }
 
-        // Cargar lista mediante AJAX (GET)
+        // Cargar lista mediante AJAX ()
         function cargarLista() {
             fetch("listado.php")
                 .then(response => response.json())
@@ -44,6 +57,7 @@
             .catch(error => console.error(error));
         }
 
+        // Esto hará que cuando cargue la ventana automáticamente se ejecute la función de cargar lista.
         window.onload = function() {
             cargarLista();
         }
@@ -53,7 +67,7 @@
     <h1>Lista de la compra</h1>
 
     <div id="lista">
-        <!-- Aquí se cargará la lista -->
+
     </div>
 
     <button onclick="cargarLista()">Cargar lista</button>
