@@ -17,10 +17,10 @@
 
     <form action="index1.php" method="POST" enctype="multipart/form-data">
         Nombre: <br>
-        <input type="text" name="nombre" required><br><br>
+        <input type="text" name="nombre"><br><br>
 
         Email: <br>
-        <input type="email" name="email" required><br><br>
+        <input type="email" name="email"><br><br>
 
         Género: <br>
         <input type="radio" name="genero" value="Hombre"> Hombre<br>
